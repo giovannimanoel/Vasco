@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bandeira do Vasco (HTML + CSS)</title>
+  <style>
+    /* Reset rápido */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+
+    /* Área que segura a bandeira, centralizada e responsiva */
+    .canvas{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#e9e9e9;
+      padding:3rem;
+      font-family:system-ui,Segoe UI,Roboto,Arial;
+    }
+
+    /* Proporção clássica de bandeira - 3:2 (largura:altura) */
+    .flag{
+      width:min(1000px,90vw);
+      aspect-ratio:3/2;
+      background:#fff; /* campo branco */
+      position:relative;
+      box-shadow:0 8px 30px rgba(0,0,0,0.15);
+      overflow:hidden;
+      border:6px solid #000; /* borda preta fina para destacar */
+      border-radius:6px;
+    }
+
+    /* Faixa diagonal preta (sash) feita com pseudo-elemento rotacionado) */
+    .flag::before{
+      content:"";
+      position:absolute;
+      left:-25%; top:-50%;
+      width:150%; height:200%;
+      background:#000;
+      transform:rotate(-25deg);
+      /* afina um pouco as bordas da faixa */
+      clip-path:polygon(0 30%,100% 40%,100% 60%,0 70%);
+    }
+
+    /* Escudo/brasão simples sobre a faixa, próximo ao mastro (lado esquerdo) */
+    .shield{
+      position:absolute;
+      left:7%; top:22%;
+      width:18%;
+      aspect-ratio:3/4;
+      display:grid;place-items:center;
+      transform:translateY(-5%);
+    }
+
+    /* Fundo do escudo (preto com contorno branco) */
+    .shield .back{
+      width:100%;height:100%;
+      background:#000;
+      border-radius:6% 6% 18% 18%/6% 6% 30% 30%;
+      border:6px solid #fff;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+    }
+
+    /* Cruz de Cristo (vermelha) dentro do escudo feita em SVG embutido */
+    .shield svg{width:72%;height:auto;display:block}
+
+    /* Opção: nome do clube discretamente no canto inferior direito */
+    .club-name{
+      position:absolute;right:8px;bottom:8px;font-weight:700;color:#111;font-size:0.9rem;opacity:0.85;
+    }
+
+    /* Pequenas adaptações para telas muito estreitas */
+    @media (max-width:480px){
+      .shield{left:6%;top:18%;width:22%}
+      .club-name{font-size:0.75rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="flag" role="img" aria-label="Bandeira inspirada no Vasco da Gama">
+
+      <div class="shield" aria-hidden="true">
+        <div class="back">
+          <!-- Cruz de Cristo simplificada em SVG -->
+          <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Fundo transparente; a cruz: -->
+            <g transform="translate(0,0)">
+              <!-- Base da cruz -->
+              <path d="M50 10 L60 32 L84 35 L66 54 L71 78 L50 66 L29 78 L34 54 L16 35 L40 32 Z" fill="#c8102e" stroke="#c8102e" stroke-width="0.5"/>
+              <!-- Braços grossos para dar forma mais fechada -->
+              <rect x="44" y="30" width="12" height="44" rx="3" ry="3" fill="#c8102e" />
+              <rect x="30" y="44" width="40" height="12" rx="3" ry="3" fill="#c8102e" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="club-name">Club de Regatas Vasco da Gama</div>
+    </div>
+  </div>
+</body>
+</html>
